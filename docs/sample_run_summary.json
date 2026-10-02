@@ -1,0 +1,21 @@
+{
+  "run_id": "9c763ee17692",
+  "log_file": "results\\agent_runs\\9c763ee17692.jsonl",
+  "counts": {
+    "main_agent": 11,
+    "data_agent": 4,
+    "training_agent": 3,
+    "evaluation_agent": 5,
+    "prediction_agent": 3,
+    "verification_agent": 4
+  },
+  "shares": {
+    "main_agent": 0.367,
+    "data_agent": 0.133,
+    "training_agent": 0.1,
+    "evaluation_agent": 0.167,
+    "prediction_agent": 0.1,
+    "verification_agent": 0.133
+  },
+  "balanced": true
+}

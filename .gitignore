@@ -4,6 +4,8 @@ __pycache__/
 *.pyc
 run.log
 validation_run.log
+ml_subprocess_check.log
 data/bns_total_final_consumption_raw.csv
 data/bns_heat_energy_consumption.xlsx
 catboost_info/
+results/agent_runs/

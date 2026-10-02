@@ -60,14 +60,15 @@ uv pip install --python .venv\Scripts\python.exe -r requirements.txt
 
 ## Multi-Agent система
 
-`src/agents.py` использует установленный `deepagents` API `create_deep_agent()`. Главный Deep Agent делегирует задачи четырём подагентам:
+`src/agents.py` использует установленный `deepagents` API `create_deep_agent()`. Главный Deep Agent делегирует задачи пяти подагентам:
 
 ```text
 Main Deep Agent
 ├── data_agent          → загрузка, анализ и подготовка данных
 ├── training_agent      → 11 моделей и 10-fold CV
 ├── evaluation_agent    → Table 1, лучший Pipeline
-└── prediction_agent    → проверка входа и вызов сохранённой ML модели
+├── prediction_agent    → проверка входа и вызов сохранённой ML модели
+└── verification_agent  → независимая проверка данных и артефактов
 ```
 
 Каждый подагент вызывает Python tools; LLM не рассчитывает метрики и предсказания. Для интерактивной демонстрации скопируйте `.env.example` в `.env`, установите `MODEL_PROVIDER`, `MODEL_NAME` и ключ выбранного провайдера (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY` либо `GOOGLE_API_KEY`). Затем:
@@ -77,3 +78,12 @@ Main Deep Agent
 ```
 
 Примеры запросов: `Analyze the dataset`, `Train all required models`, `Which model performed best?`, `Predict week 1, hour 1, node N0000`. `main.py --agent` сначала выполняет ML цикл, затем открывает этот же чат. При отсутствии ключа `main.py` всё равно выполняет основной assignment.
+
+Полный сценарий с пятью специалистами и журналом всех вызовов:
+
+```powershell
+.venv\Scripts\python.exe -m src.agents --demo
+.venv\Scripts\python.exe -m unittest discover -s tests -v
+```
+
+Журналы находятся в `results/agent_runs/`: JSONL с событиями и соседний summary с долями нагрузки. Запросы, ответы tools и ключи в журнал не записываются. Состояние разговора хранится в памяти в течение работы CLI. Схема и таблица входов/выходов находятся в [docs/architecture.md](docs/architecture.md), ожидаемые результаты десяти сценариев — в [docs/scenarios.md](docs/scenarios.md).

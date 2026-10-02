@@ -139,3 +139,10 @@ def save_plots(df: pd.DataFrame, table: pd.DataFrame) -> None:
         fig.tight_layout()
         fig.savefig(plot_dir / filename, dpi=140)
         plt.close(fig)
+
+
+if __name__ == "__main__":
+    import sys
+
+    sys.stdout.reconfigure(encoding="utf-8")
+    train_and_evaluate_models()
