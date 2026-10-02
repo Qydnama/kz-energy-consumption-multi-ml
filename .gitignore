@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+.env
+*.pyc
+run.log
+data/bns_total_final_consumption_raw.csv
+data/bns_heat_energy_consumption.xlsx
+catboost_info/

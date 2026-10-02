@@ -1,0 +1,13 @@
+pandas>=2.2,<4
+numpy>=2,<3
+scikit-learn>=1.6,<2
+xgboost>=3,<4
+lightgbm>=4,<5
+catboost>=1.2,<2
+matplotlib>=3.9,<4
+openpyxl>=3.1,<4
+joblib>=1.4,<2
+deepagents>=0.7,<0.8
+langchain>=1,<2
+langchain-openai>=1,<2
+python-dotenv>=1,<2
