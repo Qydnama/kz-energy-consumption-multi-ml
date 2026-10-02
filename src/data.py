@@ -36,7 +36,8 @@ def prepare_dataset() -> pd.DataFrame:
         raise ValueError("Dataset does not support 10-fold regression")
     DATASET.parent.mkdir(parents=True, exist_ok=True)
     table.to_csv(DATASET, index=False)
-    return table
+    # Use the persisted values everywhere: CLI and agents must train on identical input.
+    return pd.read_csv(DATASET)
 
 
 def load_dataset() -> pd.DataFrame:

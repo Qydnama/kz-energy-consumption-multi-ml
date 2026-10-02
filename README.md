@@ -44,7 +44,7 @@ uv pip install --python .venv\Scripts\python.exe -r requirements.txt
 
 | Algorithm | Number of Features | Number of Targets | K-Fold Validation | RMSE | R² |
 |---|---:|---:|---:|---:|---:|
-| Extra Trees Regression | 5 | 1 | 10 | 16.578 | 0.997506 |
+| Extra Trees Regression | 5 | 1 | 10 | 16.518 | 0.997528 |
 | XGBoost | 5 | 1 | 10 | 17.398 | 0.997213 |
 | CatBoost | 5 | 1 | 10 | 19.228 | 0.996618 |
 | HistGradientBoosting | 5 | 1 | 10 | 19.849 | 0.996398 |

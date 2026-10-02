@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from langchain.chat_models import init_chat_model
 from langchain_core.tools import tool
 
-from src.data import FEATURES, TARGET, load_dataset, prepare_dataset
+from src.data import FEATURES, ROOT, TARGET, load_dataset, prepare_dataset
 from src.ml import RESULTS, create_results_table, save_best_model, select_best_model, train_and_evaluate_models
 from src.prediction import predict_energy_consumption
 
@@ -43,7 +43,10 @@ def prepare_dataset_tool() -> str:
 def train_and_evaluate_models_tool() -> str:
     """Train all 11 regressors with 10-fold CV and save their actual RMSE/R2 results."""
     table = train_and_evaluate_models()
-    return table.to_json(orient="records")
+    return json.dumps({
+        "results_file": str(RESULTS.relative_to(ROOT)),
+        "results": json.loads(table.to_json(orient="records")),
+    })
 
 
 @tool
@@ -77,7 +80,7 @@ SUBAGENTS = [
     {
         "name": "training_agent",
         "description": "Run all eleven regression algorithms with shared 10-fold validation.",
-        "system_prompt": "Call the training tool. Report only metrics returned by it. Training can take several minutes.",
+        "system_prompt": "Call the training tool. Report only metrics and the exact results_file returned by it. Training can take several minutes.",
         "tools": [train_and_evaluate_models_tool],
     },
     {
@@ -112,6 +115,7 @@ def create_agent():
             "You coordinate four specialized agents. Delegate dataset requests to data_agent, "
             "training to training_agent, results to evaluation_agent, and predictions to "
             "prediction_agent. The Python tools are the only source of numerical results. "
+            "Only report file paths that a tool explicitly returns; never invent artifact names. "
             "The published two-week nodal series is a processed research dataset, not live measurements."
         ),
     )
